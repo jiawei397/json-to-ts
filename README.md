@@ -17,7 +17,7 @@ which version is `1.7.0`.
 ### Code
 
 ```javascript
-import JsonToTS from "https://deno.land/x/json-to-ts@v1.7.0/mod.ts";
+import JsonToTS from "https://deno.land/x/json_to_ts@v1.7.0/mod.ts";
 
 const json = {
   cats: [
