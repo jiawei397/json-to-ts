@@ -1,4 +1,4 @@
-// deno-lint-ignore-file no-explicit-any no-case-declarations
+// deno-lint-ignore-file no-explicit-any no-case-declarations ban-types
 import { sha1 } from "../deps.ts";
 import { TypeDescription, TypeStructure } from "./model.ts";
 import {

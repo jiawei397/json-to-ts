@@ -1,4 +1,4 @@
-// deno-lint-ignore-file ban-types
+// deno-lint-ignore-file ban-types no-explicit-any
 import {
   InterfaceDescription,
   KeyMetaData,

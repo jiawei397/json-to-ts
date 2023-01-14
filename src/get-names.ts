@@ -72,7 +72,7 @@ function getName(
 
 export function getNames(
   typeStructure: TypeStructure,
-  rootName: string = "RootObject",
+  rootName = "RootObject",
 ): NameEntry[] {
   return getName(typeStructure, rootName, [], false).names.reverse();
 }
