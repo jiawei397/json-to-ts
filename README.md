@@ -2,6 +2,10 @@
 
 # Json to TS
 
+[![deno version](https://img.shields.io/badge/deno-^1.29.0-blue?logo=deno)](https://github.com/denoland/deno)
+[![Deno](https://github.com/jiawei397/deno-oak-nest/actions/workflows/deno.yml/badge.svg)](https://github.com/jiawei397/deno-oak-nest/actions/workflows/deno.yml)
+[![codecov](https://codecov.io/gh/jiawei397/json-to-ts/branch/master/graph/badge.svg?token=A8HP405123)](https://codecov.io/gh/jiawei397/json-to-ts)
+
 Forked from
 [https://github.com/MariusAlch/json-to-ts](https://github.com/MariusAlch/json-to-ts)
 which version is `1.7.0`.
@@ -13,7 +17,7 @@ which version is `1.7.0`.
 ### Code
 
 ```javascript
-import JsonToTS from "json-to-ts";
+import JsonToTS from "https://deno.land/x/json-to-ts@v1.7.0/mod.ts";
 
 const json = {
   cats: [
