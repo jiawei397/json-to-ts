@@ -2,6 +2,10 @@
 
 # Json to TS
 
+Forked from
+[https://github.com/MariusAlch/json-to-ts](https://github.com/MariusAlch/json-to-ts)
+which version is `1.7.0`.
+
 ### Convert json object to typescript interfaces
 
 # Example
@@ -9,20 +13,20 @@
 ### Code
 
 ```javascript
-const JsonToTS = require('json-to-ts')
+import JsonToTS from "json-to-ts";
 
 const json = {
   cats: [
-    {name: 'Kittin'},
-    {name: 'Mittin'}
+    { name: "Kittin" },
+    { name: "Mittin" },
   ],
   favoriteNumber: 42,
-  favoriteWord: 'Hello'
-}
+  favoriteWord: "Hello",
+};
 
-JsonToTS(json).forEach( typeInterface => {
-  console.log(typeInterface)
-})
+JsonToTS(json).forEach((typeInterface) => {
+  console.log(typeInterface);
+});
 ```
 
 ### Output:
@@ -39,14 +43,9 @@ interface Cat {
 ```
 
 ## Converter
+
 - Array type merging (**Big deal**)
 - Union types
 - Duplicate type prevention
 - Optional types
 - Array types
-
-# Setup
-
-```sh
-$ npm install --save json-to-ts
-```

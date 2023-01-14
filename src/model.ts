@@ -1,8 +1,9 @@
+// deno-lint-ignore-file
 export enum TypeGroup {
   Primitive,
   Array,
   Object,
-  Date
+  Date,
 }
 
 export interface TypeDescription {

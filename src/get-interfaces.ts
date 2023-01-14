@@ -1,5 +1,11 @@
-import { InterfaceDescription, NameEntry, TypeStructure, KeyMetaData } from "./model";
-import { isHash, findTypeById, isNonArrayUnion } from "./util";
+// deno-lint-ignore-file ban-types
+import {
+  InterfaceDescription,
+  KeyMetaData,
+  NameEntry,
+  TypeStructure,
+} from "./model.ts";
+import { findTypeById, isHash, isNonArrayUnion } from "./util.ts";
 
 function isKeyNameValid(keyName: string) {
   const regex = /^[a-zA-Z_][a-zA-Z\d_]*$/;
@@ -12,18 +18,18 @@ function parseKeyMetaData(key: string): KeyMetaData {
   if (isOptional) {
     return {
       isOptional,
-      keyValue: key.slice(0, -3)
+      keyValue: key.slice(0, -3),
     };
   } else {
     return {
       isOptional,
-      keyValue: key
+      keyValue: key,
     };
   }
 }
 
 function findNameById(id: string, names: NameEntry[]): string {
-  return names.find(_ => _.id === id).name;
+  return names.find((_) => _.id === id)!.name;
 }
 
 function removeNullFromUnion(unionTypeName: string) {
@@ -33,7 +39,10 @@ function removeNullFromUnion(unionTypeName: string) {
   return typeNames.join(" | ");
 }
 
-function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names: NameEntry[]): object {
+function replaceTypeObjIdsWithNames(
+  typeObj: { [index: string]: string },
+  names: NameEntry[],
+): object {
   return (
     Object.entries(typeObj)
       // quote key if is invalid and question mark if optional from array merging
@@ -43,7 +52,9 @@ function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names:
 
         const validName = isValid ? keyValue : `'${keyValue}'`;
 
-        return isOptional ? [`${validName}?`, type, isOptional] : [validName, type, isOptional];
+        return isOptional
+          ? [`${validName}?`, type, isOptional]
+          : [validName, type, isOptional];
       })
       // replace hashes with names referencing the hashes
       .map(([key, type, isOptional]): [string, string, boolean] => {
@@ -77,11 +88,13 @@ function replaceTypeObjIdsWithNames(typeObj: { [index: string]: string }, names:
       .reduce((agg, [key, value]) => {
         agg[key] = value;
         return agg;
-      }, {})
+      }, {} as Record<string, any>)
   );
 }
 
-export function getInterfaceStringFromDescription({ name, typeMap }: InterfaceDescription): string {
+export function getInterfaceStringFromDescription(
+  { name, typeMap }: InterfaceDescription,
+): string {
   const stringTypeMap = Object.entries(typeMap)
     .map(([key, name]) => `  ${key}: ${name};\n`)
     .reduce((a, b) => (a += b), "");
@@ -93,17 +106,23 @@ export function getInterfaceStringFromDescription({ name, typeMap }: InterfaceDe
   return interfaceString;
 }
 
-export function getInterfaceDescriptions(typeStructure: TypeStructure, names: NameEntry[]): InterfaceDescription[] {
+export function getInterfaceDescriptions(
+  typeStructure: TypeStructure,
+  names: NameEntry[],
+): InterfaceDescription[] {
   return names
     .map(({ id, name }) => {
       const typeDescription = findTypeById(id, typeStructure.types);
 
-      if (typeDescription.typeObj) {
-        const typeMap = replaceTypeObjIdsWithNames(typeDescription.typeObj, names);
+      if (typeDescription?.typeObj) {
+        const typeMap = replaceTypeObjIdsWithNames(
+          typeDescription.typeObj,
+          names,
+        );
         return { name, typeMap };
       } else {
         return null;
       }
     })
-    .filter(_ => _ !== null);
+    .filter((_) => _ !== null) as InterfaceDescription[];
 }

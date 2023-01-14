@@ -1,14 +1,15 @@
-import { KeyMetaData, TypeGroup, TypeDescription } from "./model";
+// deno-lint-ignore-file no-explicit-any
+import { KeyMetaData, TypeDescription, TypeGroup } from "./model.ts";
 
 export function isHash(str: string) {
   return str.length === 40;
 }
 
-export function onlyUnique(value, index, self) {
+export function onlyUnique(value: any, index: number, self: any) {
   return self.indexOf(value) === index;
 }
 
-export function isArray(x) {
+export function isArray(x: unknown) {
   return Object.prototype.toString.call(x) === "[object Array]";
 }
 
@@ -18,11 +19,11 @@ export function isNonArrayUnion(typeName: string) {
   return typeName.includes(" | ") && !arrayUnionRegex.test(typeName);
 }
 
-export function isObject(x) {
+export function isObject(x: unknown) {
   return Object.prototype.toString.call(x) === "[object Object]" && x !== null;
 }
 
-export function isDate(x) {
+export function isDate(x: unknown) {
   return x instanceof Date;
 }
 
@@ -32,12 +33,12 @@ export function parseKeyMetaData(key: string): KeyMetaData {
   if (isOptional) {
     return {
       isOptional,
-      keyValue: key.slice(0, -3)
+      keyValue: key.slice(0, -3),
     };
   } else {
     return {
       isOptional,
-      keyValue: key
+      keyValue: key,
     };
   }
 }
@@ -52,6 +53,9 @@ export function getTypeDescriptionGroup(desc: TypeDescription): TypeGroup {
   }
 }
 
-export function findTypeById(id: string, types: TypeDescription[]): TypeDescription {
-  return types.find(_ => _.id === id);
+export function findTypeById(
+  id: string,
+  types: TypeDescription[],
+): TypeDescription {
+  return types.find((_) => _.id === id)!;
 }
